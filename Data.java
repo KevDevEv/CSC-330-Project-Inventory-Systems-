@@ -1,13 +1,13 @@
 public class Data {
-    String location;
-    int stock;
-    int in;
-    int out;
-    int inRate;
-    int outRate;
-    int baseLine;
-    int lowerBound;
-    int upperBound;
+    private String location;
+    private int stock;
+    private int in;
+    private int out;
+    private int inRate;
+    private int outRate;
+    private int baseLine;
+    private int lowerBound;
+    private int upperBound;
 
     public Data(String location, int stock, int in, int out, int inRate, int outRate, int baseLine, int lowerBound, int upperBound) {
         this.location = location;
