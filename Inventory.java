@@ -1,4 +1,4 @@
-import java.io.FileInputStream;
+    import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ public class Inventory implements Loggable, UserAccessible
     public void removeItem(String item) {inventory.remove(item);}
     public void clear() {inventory.clear();}
     public void stats() {
-        int tStock = 0, tIn = 0, tOut = 0, tInRate = 0, tOutRate = 0, tBaseLine = 0, tLowerBounds = 0, tUpperBounds = 0;
+        int tStock = 0, tIn = 0, tOut = 0, tInRate = 0, tOutRate = 0, tBaseLine = 0, tLowerBounds = 0, tUpperBounds = 0, size = inventory.size();
         for (Map.Entry<String,Data> entry : inventory.entrySet()) {
             tStock += entry.getValue().getStock();
             tIn += entry.getValue().getIn();
@@ -29,7 +29,7 @@ public class Inventory implements Loggable, UserAccessible
             tLowerBounds += entry.getValue().getLowerBound();
             tUpperBounds += entry.getValue().getUpperBound();
         }
-        System.out.println("Size: " + inventory.size());
+        System.out.println("Size: " + size);
         System.out.println("Totals:");
         System.out.println("Stock: " + tStock + 
         ", diffRate: " + (tInRate - tOutRate) + 
@@ -41,15 +41,15 @@ public class Inventory implements Loggable, UserAccessible
         ", lowerBound: " + tLowerBounds  + 
         ", upperBound: " +  tUpperBounds);
         System.out.println("Averages: ");
-        System.out.println("Stock: " + tStock/inventory.size() + 
-        ", diffRate: " + (tInRate/inventory.size() - tOutRate/inventory.size()) + 
-        ", in: " + tIn/inventory.size() + 
-        ", out: " + tOut/inventory.size() + 
-        ", inRate: " + tInRate/inventory.size() + 
-        ", outRate " + tOutRate/inventory.size()  + 
-        ", baseLine: " +  tBaseLine/inventory.size()  + 
-        ", lowerBound: " + tLowerBounds/inventory.size()  + 
-        ", upperBound: " +  tUpperBounds/inventory.size());
+        System.out.println("Stock: " + tStock/size + 
+        ", diffRate: " + (tInRate/size - tOutRate/size) + 
+        ", in: " + tIn/size + 
+        ", out: " + tOut/size + 
+        ", inRate: " + tInRate/size + 
+        ", outRate " + tOutRate/size  + 
+        ", baseLine: " +  tBaseLine/size  + 
+        ", lowerBound: " + tLowerBounds/size  + 
+        ", upperBound: " +  tUpperBounds/size);
     }
     public void print() {
         for (Map.Entry<String,Data> entry : inventory.entrySet()) {
