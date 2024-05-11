@@ -39,10 +39,10 @@ public class Data {
         dec(outRate);
     }
     public String toString() {
-        return(stock + " " + in + " " + out + " " + inRate + " " + outRate  + " " +  baseLine  + " " + lowerBound  + " " +  upperBound);
+        return(location + " " + stock + " " + in + " " + out + " " + inRate + " " + outRate  + " " +  baseLine  + " " + lowerBound  + " " +  upperBound);
     }
     public void print() {
-        System.out.println("Stock: " + stock + ", diffRate: " + (inRate - outRate) + ", in: " + in + ", out: " + out + ", inRate: " + inRate + ", outRate " + outRate  + ", baseLine: " +  baseLine  + ", lowerBound: " + lowerBound  + ", upperBound: " +  upperBound);
+        System.out.println("Stock: " + stock + ", diffRate: " + (inRate - outRate) + ", location: " + location + ", in: " + in + ", out: " + out + ", inRate: " + inRate + ", outRate " + outRate  + ", baseLine: " +  baseLine  + ", lowerBound: " + lowerBound  + ", upperBound: " +  upperBound);
     }
     public void inc(int size) {
         in += size;
