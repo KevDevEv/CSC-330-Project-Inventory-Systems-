@@ -2,7 +2,7 @@ import java.util.Map;
 
 public class Automatics extends Inventory
 {
-    int maxCapacity;
+    private int maxCapacity;
     
     Automatics(int maxCapacity) {this.maxCapacity = maxCapacity;}
     Automatics() {this.maxCapacity = 0;}
