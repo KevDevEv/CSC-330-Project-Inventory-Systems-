@@ -17,15 +17,39 @@ public class Inventory implements Loggable, UserAccessible
     public void addItem(String item, Data d) {inventory.put(item, d);}
     public void removeItem(String item) {inventory.remove(item);}
     public void clear() {inventory.clear();}
-    public void totals() {
-        int tStock = 0, tIn = 0, tOut = 0;
+    public void stats() {
+        int tStock = 0, tIn = 0, tOut = 0, tInRate = 0, tOutRate = 0, tBaseLine = 0, tLowerBounds = 0, tUpperBounds = 0;
         for (Map.Entry<String,Data> entry : inventory.entrySet()) {
             tStock += entry.getValue().getStock();
             tIn += entry.getValue().getIn();
             tOut += entry.getValue().getOut();
+            tInRate += entry.getValue().getInRate();
+            tOutRate += entry.getValue().getOutRate();
+            tBaseLine += entry.getValue().getBaseLine();
+            tLowerBounds += entry.getValue().getLowerBound();
+            tUpperBounds += entry.getValue().getUpperBound();
         }
+        System.out.println("Size: " + inventory.size());
         System.out.println("Totals:");
-        System.out.println("Stock: " + tStock + ", In: " + tIn + ", Out: " + tOut);
+        System.out.println("Stock: " + tStock + 
+        ", diffRate: " + (tInRate - tOutRate) + 
+        ", in: " + tIn + 
+        ", out: " + tOut + 
+        ", inRate: " + tInRate + 
+        ", outRate " + tOutRate  + 
+        ", baseLine: " +  tBaseLine  + 
+        ", lowerBound: " + tLowerBounds  + 
+        ", upperBound: " +  tUpperBounds);
+        System.out.println("Averages: ");
+        System.out.println("Stock: " + tStock/inventory.size() + 
+        ", diffRate: " + (tInRate/inventory.size() - tOutRate/inventory.size()) + 
+        ", in: " + tIn/inventory.size() + 
+        ", out: " + tOut/inventory.size() + 
+        ", inRate: " + tInRate/inventory.size() + 
+        ", outRate " + tOutRate/inventory.size()  + 
+        ", baseLine: " +  tBaseLine/inventory.size()  + 
+        ", lowerBound: " + tLowerBounds/inventory.size()  + 
+        ", upperBound: " +  tUpperBounds/inventory.size());
     }
     public void print() {
         for (Map.Entry<String,Data> entry : inventory.entrySet()) {
