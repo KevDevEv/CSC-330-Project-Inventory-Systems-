@@ -4,8 +4,18 @@ public class Automatics extends Inventory
 {
     private int maxCapacity;
     
-    Automatics(int maxCapacity) {this.maxCapacity = maxCapacity;}
-    Automatics() {this.maxCapacity = 0;}
+    Automatics(int maxCapacity) {
+        super();
+        this.maxCapacity = maxCapacity;
+    }
+    Automatics(Inventory inv, int maxCapacity) {
+        this.inventory = inv.inventory;
+        this.maxCapacity = maxCapacity;
+    }
+    Automatics() {
+        super();
+        this.maxCapacity = 0;
+    }
 
     public void setMaxCapacity(int maxCapacity) {this.maxCapacity = maxCapacity;}
     public int getMaxCapacity() {return maxCapacity;}
@@ -23,9 +33,9 @@ public class Automatics extends Inventory
     
     public void simulate(int time) {
         for (int i = 0; i < time; i++) {
+            if (!inCapacity()) levelOff();
             for (Map.Entry<String,Data> entry : inventory.entrySet()) {
-                if (!inCapacity()) levelOff();
-                else if (!entry.getValue().inBounds()) entry.getValue().level();
+                if (!entry.getValue().inBounds()) entry.getValue().level();
                 entry.getValue().tick();
             }
         }
