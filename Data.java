@@ -52,7 +52,7 @@ public class Data {
         out += size;
         stock -= size;
     }
-    public boolean inBounds() {return stock < upperBound || stock > lowerBound;}
+    public boolean inBounds() {return stock < upperBound && stock > lowerBound;}
     public void level() {
         if (stock > baseLine) dec(stock - baseLine);
         else inc(baseLine - stock);
