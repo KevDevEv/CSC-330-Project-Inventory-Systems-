@@ -117,13 +117,14 @@ public class UserInteraction {
                         database.testConnection();
                     break;
                     case 12:
+                        database.setInventory(inventory.getInventory());
                         database.uploadData();
                     break;
                     case 13:
                         database.downloadData();
                     break;
                     default:
-                        System.out.println("Invalid choice. Please enter a number between 1 and 4.");
+                        System.out.println("Invalid choice. Please enter a number between 0 and 13.");
                 }
             }
         }
