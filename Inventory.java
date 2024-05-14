@@ -124,4 +124,5 @@ public class Inventory implements Loggable, UserAccessible
             System.out.println("error");
         }
     }
+    public HashMap<String, Data> getInventory() {return inventory;}
 }
