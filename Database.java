@@ -1,10 +1,13 @@
-import java.sql.*;
+import java.sql.*; // By Waleed Mansour
 import java.util.Map;
 import java.util.HashMap;
 
 public class Database {
     // A HashMap to store inventory data, mapping item names to their data
     private Map<String, Data> inventory = new HashMap<>();
+
+     //sets the inventory
+    public void setInventory(Map<String, Data> inventory) {this.inventory = inventory;}
 
     // Database connection details
     private final String url = "jdbc:sqlserver://wooboys.tplinkdns.com:1434;database=HRMainData;trustServerCertificate=true;user=BaseLogin;password=D@l34218912";
@@ -95,15 +98,14 @@ public class Database {
      * inserted.
      */
     public void uploadData() {
-        // SQL query for inserting new records or updating existing ones based on
-        // item_name
-        String query = "INSERT INTO inventory_items (item_name, location, stock, in_count, out_count, in_rate, out_rate, base_line, lower_bound, upper_bound) "
-                +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
-                "ON CONFLICT (item_name) DO UPDATE " +
-                "SET location = EXCLUDED.location, stock = EXCLUDED.stock, in_count = EXCLUDED.in_count, " +
-                "out_count = EXCLUDED.out_count, in_rate = EXCLUDED.in_rate, out_rate = EXCLUDED.out_rate, " +
-                "base_line = EXCLUDED.base_line, lower_bound = EXCLUDED.lower_bound, upper_bound = EXCLUDED.upper_bound;";
+        // SQL query using MERGE statement for SQL Server to handle upsert logic
+        String query = "MERGE INTO inventory_items AS TARGET USING (SELECT ? AS item_name, ? AS location, ? AS stock, ? AS in_count, ? AS out_count, ? AS in_rate, ? AS out_rate, ? AS base_line, ? AS lower_bound, ? AS upper_bound) AS SOURCE " +
+                "ON TARGET.item_name = SOURCE.item_name " +
+                "WHEN MATCHED THEN " +
+                "UPDATE SET TARGET.location = SOURCE.location, TARGET.stock = SOURCE.stock, TARGET.in_count = SOURCE.in_count, TARGET.out_count = SOURCE.out_count, TARGET.in_rate = SOURCE.in_rate, TARGET.out_rate = SOURCE.out_rate, TARGET.base_line = SOURCE.base_line, TARGET.lower_bound = SOURCE.lower_bound, TARGET.upper_bound = SOURCE.upper_bound " +
+                "WHEN NOT MATCHED BY TARGET THEN " +
+                "INSERT (item_name, location, stock, in_count, out_count, in_rate, out_rate, base_line, lower_bound, upper_bound) " +
+                "VALUES (SOURCE.item_name, SOURCE.location, SOURCE.stock, SOURCE.in_count, SOURCE.out_count, SOURCE.in_rate, SOURCE.out_rate, SOURCE.base_line, SOURCE.lower_bound, SOURCE.upper_bound);";
         try (Connection conn = connect();
                 PreparedStatement pstmt = conn.prepareStatement(query)) {
             for (Map.Entry<String, Data> entry : inventory.entrySet()) {
